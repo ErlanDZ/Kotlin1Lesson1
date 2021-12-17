@@ -25,27 +25,9 @@ class CharacterRepository @Inject constructor(
             }
         ).liveData
     }
-//    fun charactersRepository(page: Int): MutableLiveData<RickAndMortyResponse<CharacterModel>?> {
-//        val data = MutableLiveData<RickAndMortyResponse<CharacterModel>?>()
-//        service.fetchCharactersApiService(page).enqueue(object : Callback<RickAndMortyResponse<CharacterModel>>{
-//            override fun onResponse(
-//                call: Call<RickAndMortyResponse<CharacterModel>>,
-//                response: Response<RickAndMortyResponse<CharacterModel>>
-//            ) {
-//                 if (response.isSuccessful){
-//                     data.value = response.body()
-//
-//                 }
-//            }
-//
-//            override fun onFailure(call: Call<RickAndMortyResponse<CharacterModel>>, t: Throwable) {
-//                data.value = null
-//            }
-//        })
-//        return data
-//    }
 
-    fun characterRepository(id: Int): MutableLiveData<CharacterModel>{
+
+  suspend  fun characterRepository(id: Int): MutableLiveData<CharacterModel>{
         val data: MutableLiveData<CharacterModel> = MutableLiveData()
         service.fetchCharacterApiService(id).enqueue(object : Callback<CharacterModel>{
             override fun onResponse(

@@ -1,13 +1,11 @@
 package com.example.kotlin1lesson1.ui.fragments.character
 
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.kotlin1lesson1.R
 import com.example.kotlin1lesson1.common.base.BaseFragment
@@ -47,10 +45,12 @@ class CharacterFragment :
         }
     }
 
-    override fun swiperefresh() {
-        binding.characterSwiperefreshLayout.setOnRefreshListener {
-            characterAdapter.refresh()
-            binding.characterSwiperefreshLayout.isRefreshing = false
+    override fun swiperefresh()  {
+        lifecycleScope.launch{
+            binding.characterSwiperefreshLayout.setOnRefreshListener {
+                characterAdapter.refresh()
+                binding.characterSwiperefreshLayout.isRefreshing = false
+            }
         }
     }
 
@@ -68,6 +68,4 @@ class CharacterFragment :
                 .setImage(image)
         )
     }
-
-
 }

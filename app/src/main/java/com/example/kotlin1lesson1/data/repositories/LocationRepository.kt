@@ -27,27 +27,7 @@ class LocationRepository @Inject constructor(
         ).liveData
     }
 
-//    fun fetchLocations(page: Int): MutableLiveData<RickAndMortyResponse<LocationModel>?> {
-//        val data = MutableLiveData<RickAndMortyResponse<LocationModel>?>()
-//        service.fetchLocations(page)
-//            .enqueue(object : Callback<RickAndMortyResponse<LocationModel>> {
-//                override fun onResponse(
-//                    call: Call<RickAndMortyResponse<LocationModel>>,
-//                    response: Response<RickAndMortyResponse<LocationModel>>
-//                ) {
-//                    if (response.isSuccessful) {
-//                        data.value = response.body()
-//                    }
-//                }
-//                override fun onFailure(
-//                    call: Call<RickAndMortyResponse<LocationModel>>,
-//                    t: Throwable
-//                ) {
-//                    data.value = null
-//                }
-//            })
-//        return data
-//    }
+
 
     fun locationRepository(id: Int): MutableLiveData<LocationModel>{
         val data: MutableLiveData<LocationModel> = MutableLiveData()

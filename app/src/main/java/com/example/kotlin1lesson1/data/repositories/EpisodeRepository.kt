@@ -28,26 +28,7 @@ class EpisodeRepository @Inject constructor(
             }
         ).liveData
     }
-//    fun fetchEpisodesRepository(page: Int): MutableLiveData<RickAndMortyResponse<EpisodeModel>?>{
-//        val data = MutableLiveData<RickAndMortyResponse<EpisodeModel>?>()
-//        service.episodeApiService(page)
-//            .enqueue(object : Callback<RickAndMortyResponse<EpisodeModel>>{
-//            override fun onResponse(
-//                call: Call<RickAndMortyResponse<EpisodeModel>>,
-//                response: Response<RickAndMortyResponse<EpisodeModel>>
-//            ) {
-//                if(response.isSuccessful){
-//                    data.value = response.body()
-//                }
-//            }
-//
-//            override fun onFailure(
-//                call: Call<RickAndMortyResponse<EpisodeModel>>, t: Throwable) {
-//                data.value = null
-//            }
-//        })
-//        return data
-//    }
+
 
     fun episodeRepository(id: Int): MutableLiveData<EpisodeModel>{
         val data: MutableLiveData<EpisodeModel> = MutableLiveData()
