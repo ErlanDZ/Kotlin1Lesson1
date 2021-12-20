@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -39,6 +40,12 @@ class LocationFragment :
         }
     }
 
+    override fun swiperefresh() {
+        binding.locationSwiperefreshLayout.setOnRefreshListener {
+            locationAdapter.refresh()
+        }
+    }
+
     override fun initialization() = with(binding) {
         recyclerLocation.layoutManager = LinearLayoutManager(context)
         recyclerLocation.adapter = locationAdapter.withLoadStateFooter(
@@ -47,17 +54,12 @@ class LocationFragment :
         locationAdapter.addLoadStateListener { loadStates ->
             recyclerLocation.isVisible = loadStates.refresh is LoadState.NotLoading
             progressBar.isVisible = loadStates.refresh is LoadState.Loading
+            locationSwiperefreshLayout.isRefreshing = false
         }
     }
 
     private fun setupListeners(id: Int){
         findNavController().navigate(
             LocationFragmentDirections.actionLocationFragmentToLocatioinDetailFragment().setId(id))
-    }
-    override fun swiperefresh() {
-        binding.locationSwiperefreshLayout.setOnRefreshListener {
-            locationAdapter.refresh()
-            binding.locationSwiperefreshLayout.isRefreshing = false
-        }
     }
 }

@@ -14,5 +14,5 @@ interface CharacterApiService {
     ) : RickAndMortyResponse<CharacterModel>
 
     @GET("character/{id}")
-   suspend fun fetchCharacterApiService(@Path("id") id: Int) : Call<CharacterModel>
+    suspend fun fetchCharacterApiService(@Path("id") id: Int) : CharacterModel
 }

@@ -14,7 +14,5 @@ class LocationDetailViewModel @Inject constructor(
     private val repository: LocationRepository
 ) : ViewModel() {
 
-    fun  fetchLocation(id: Int): MutableLiveData<LocationModel> {
-        return repository.locationRepository(id)
-    }
+    fun  fetchLocation() = repository.locationRepository(1)
 }

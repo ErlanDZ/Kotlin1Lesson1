@@ -132,5 +132,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_episode"
+        app:constraint_referenced_ids="id,txt_id_detail,name,txt_name_episode_detail,air_date, txt_air_date_episode_detail,episode,txt_episode_episode_detail,created,txt_created_episode_detail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

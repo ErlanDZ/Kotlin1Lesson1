@@ -15,7 +15,5 @@ class EpisodeDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    fun  fetchEpisode(id: Int): MutableLiveData<EpisodeModel> {
-        return repository.episodeRepository(id)
-    }
+    fun  fetchEpisode() = repository.episodeRepository(1)
 }

@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import com.example.kotlin1lesson1.common.resource.Resource
 import com.example.kotlin1lesson1.databinding.FragmentEpisodeDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,15 +34,25 @@ class EpisodeDetailFragment : Fragment() {
         getData()
     }
 
-    private fun getData() {
-        viewModel.fetchEpisode(EpisodeDetailFragmentArgs.fromBundle(requireArguments()).id)
-            .observe(viewLifecycleOwner){
-                binding.txtIdDetail.text = it.id.toString()
-                binding.txtNameEpisodeDetail.text = it.name
-                binding.txtAirDateEpisodeDetail.text = it.air_date
-                binding.txtEpisodeEpisodeDetail.text = it.episode
-                binding.txtCreatedEpisodeDetail.text = it.created
+    private fun getData() = with(binding) {
+        viewModel.fetchEpisode().observe(requireActivity(),{
+            loaderEpisodeDetail.isVisible = it is Resource.Loading
+            groupEpisode.isVisible = it !is Resource.Loading
+            when(it){
+                is Resource.Error -> {
+                    Toast.makeText(requireActivity(), it.massage, Toast.LENGTH_SHORT).show()}
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    it.data?.let{data ->
+                        txtIdDetail.text = data.id.toString()
+                        txtNameEpisodeDetail.text = data.name
+                        txtAirDateEpisodeDetail.text = data.air_date
+                        txtEpisodeEpisodeDetail.text = data.episode
+                        txtCreatedEpisodeDetail.text = data.created
+                    }
+                }
             }
+        })
     }
 
     override fun onDestroy() {

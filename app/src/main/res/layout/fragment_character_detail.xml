@@ -141,4 +141,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_character"
+        app:constraint_referenced_ids="image_character_detail,id,txt_id_character_detail,name, txt_name_character_detail, view_status,view_status, txt_status_character_detail,gender, txt_gender_character_detail,hyphen"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

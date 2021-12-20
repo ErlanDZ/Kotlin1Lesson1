@@ -111,4 +111,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_location"
+        app:constraint_referenced_ids="id,txt_id_location_detail,name,txt_name_location_detail, type,txt_type_location_detail,dimension,txt_dimension_location_detail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

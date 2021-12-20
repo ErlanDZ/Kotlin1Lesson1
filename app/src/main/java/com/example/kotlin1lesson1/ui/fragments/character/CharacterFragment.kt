@@ -41,17 +41,17 @@ class CharacterFragment :
         characterAdapter.addLoadStateListener { loadStates ->
             recyclerCharacter.isVisible = loadStates.refresh is LoadState.NotLoading
             progressBar.isVisible = loadStates.refresh is LoadState.Loading
+            characterSwiperefreshLayout.isRefreshing = false
+
 
         }
     }
 
-    override fun swiperefresh()  {
-        lifecycleScope.launch{
-            binding.characterSwiperefreshLayout.setOnRefreshListener {
-                characterAdapter.refresh()
-                binding.characterSwiperefreshLayout.isRefreshing = false
-            }
+    override fun swiperefresh() {
+        binding.characterSwiperefreshLayout.setOnRefreshListener {
+            characterAdapter.refresh()
         }
+
     }
 
     private fun setOnItemClickListener(name: String, id: Int) {
