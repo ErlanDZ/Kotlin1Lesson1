@@ -1,14 +1,7 @@
 package com.example.kotlin1lesson1.ui.fragments.location
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -19,10 +12,12 @@ import com.example.kotlin1lesson1.common.base.BaseFragment
 import com.example.kotlin1lesson1.databinding.FragmentLocationBinding
 import com.example.kotlin1lesson1.ui.adapters.LocationAdapter
 import com.example.kotlin1lesson1.ui.adapters.paging.LoadStateAdapter
-import com.example.kotlin1lesson1.ui.fragments.location.detail.LocationDetailFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@InternalCoroutinesApi
 @AndroidEntryPoint
 class LocationFragment :
     BaseFragment<LocationViewModel, FragmentLocationBinding>(R.layout.fragment_location) {
@@ -33,10 +28,10 @@ class LocationFragment :
 
 
     override fun setUpObservers() {
-        viewModel.fetchLocationsViewModel().observe(viewLifecycleOwner){
-            lifecycleScope.launch {
-                locationAdapter.submitData(it) }
-
+        lifecycleScope.launch {
+            viewModel.fetchLocations().collectLatest {
+                locationAdapter.submitData(it)
+            }
         }
     }
 
@@ -58,8 +53,9 @@ class LocationFragment :
         }
     }
 
-    private fun setupListeners(id: Int){
+    private fun setupListeners(id: Int) {
         findNavController().navigate(
-            LocationFragmentDirections.actionLocationFragmentToLocatioinDetailFragment().setId(id))
+            LocationFragmentDirections.actionLocationFragmentToLocatioinDetailFragment().setId(id)
+        )
     }
 }

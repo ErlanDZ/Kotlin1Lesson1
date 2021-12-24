@@ -1,65 +1,51 @@
 package com.example.kotlin1lesson1.ui.fragments.location.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.kotlin1lesson1.R
-import com.example.kotlin1lesson1.common.resource.Resource
+import com.example.kotlin1lesson1.common.base.BaseFragment
 import com.example.kotlin1lesson1.databinding.FragmentLocatioinDetailBinding
-import com.example.kotlin1lesson1.ui.fragments.episode.detail.EpisodeDetailViewModel
+import com.example.kotlin1lesson1.presentation.state.UIState
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@InternalCoroutinesApi
 @AndroidEntryPoint
-class LocationDetailFragment : Fragment() {
-    private val viewModel: LocationDetailViewModel by viewModels()
-    private var _binding: FragmentLocatioinDetailBinding? = null
+class LocationDetailFragment :
+    BaseFragment<LocationDetailViewModel, FragmentLocatioinDetailBinding>(
+        R.layout.fragment_locatioin_detail
+    ) {
+    override val viewModel: LocationDetailViewModel by viewModels()
+    override val binding by viewBinding(FragmentLocatioinDetailBinding::bind)
 
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentLocatioinDetailBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.fetchLocation(LocationDetailFragmentArgs.fromBundle(requireArguments()).id)
         getData()
     }
 
+
     private fun getData() = with(binding) {
-        viewModel.fetchLocation().observe(requireActivity(),{
-            loaderLocationDetail.isVisible = it is Resource.Loading
-            groupLocation.isVisible = it !is Resource.Loading
-            when(it){
-                is Resource.Error -> {
+        viewModel.locationState.subscribe {
+            loaderLocationDetail.isVisible = it is UIState.Loading
+            groupLocation.isVisible = it !is UIState.Loading
+            when (it) {
+                is UIState.Error -> {
                     Toast.makeText(requireActivity(), it.massage, Toast.LENGTH_SHORT).show()
                 }
-                is Resource.Loading -> {}
-                is Resource.Success -> {
-                    it.data?. let { data ->
-                        txtIdLocationDetail.text = data.id.toString()
-                        txtNameLocationDetail.text = data.name
-                        txtTypeLocationDetail.text = data.type
-                        txtDimensionLocationDetail.text = data.dimension
-                    }
+                is UIState.Loading -> {}
+                is UIState.Success -> {
+                    txtIdLocationDetail.text = it.data.id.toString()
+                    txtNameLocationDetail.text = it.data.name
+                    txtTypeLocationDetail.text = it.data.type
+                    txtDimensionLocationDetail.text = it.data.dimension
                 }
             }
-        })
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+        }
     }
 }

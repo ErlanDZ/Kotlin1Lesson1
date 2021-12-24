@@ -13,7 +13,9 @@ import com.example.kotlin1lesson1.databinding.FragmentCharacterBinding
 import com.example.kotlin1lesson1.ui.adapters.CharacterAdapter
 import com.example.kotlin1lesson1.ui.adapters.paging.LoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class CharacterFragment :
@@ -26,11 +28,12 @@ class CharacterFragment :
         CharacterAdapter(this::setOnItemClickListener, this::setOnItemLongClickListener)
 
     override fun setUpObservers() {
-        viewModel.fetchCharacters().observe(viewLifecycleOwner, {
-            lifecycleScope.launch {
-                characterAdapter.submitData(it)
+        lifecycleScope.launch {
+            viewModel.fetchCharacters().collectLatest { data ->
+                characterAdapter.submitData(data)
+
             }
-        })
+        }
     }
 
     override fun initialization() = with(binding) {
@@ -38,12 +41,13 @@ class CharacterFragment :
         recyclerCharacter.adapter = characterAdapter.withLoadStateFooter(
             LoadStateAdapter { characterAdapter.retry() })
 
+
+        viewModel.fetchCharacters()
+
         characterAdapter.addLoadStateListener { loadStates ->
             recyclerCharacter.isVisible = loadStates.refresh is LoadState.NotLoading
             progressBar.isVisible = loadStates.refresh is LoadState.Loading
             characterSwiperefreshLayout.isRefreshing = false
-
-
         }
     }
 

@@ -3,10 +3,11 @@ package com.example.kotlin1lesson1.common.base
 import androidx.lifecycle.liveData
 import com.example.kotlin1lesson1.common.resource.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
 import java.lang.Exception
 
 abstract class BaseRepository {
-    protected fun <T> doRequest(request: suspend () -> T) = liveData(Dispatchers.IO) {
+    protected fun <T> doRequest(request: suspend () -> T) = flow {
         emit(Resource.Loading())
         try {
             emit(Resource.Success(data = request()))
