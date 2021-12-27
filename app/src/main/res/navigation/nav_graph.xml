@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/characterFragment"
-        android:name="com.example.kotlin1lesson1.ui.fragments.character.CharacterFragment"
+        android:name="com.example.kotlin1lesson6.ui.fragments.character.CharacterFragment"
         android:label="CHARACTERS"
         tools:layout="@layout/fragment_character" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
-        android:name="com.example.kotlin1lesson1.ui.fragments.location.LocationFragment"
+        android:name="com.example.kotlin1lesson6.ui.fragments.location.LocationFragment"
         android:label="LOCATION"
         tools:layout="@layout/fragment_location" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/episodeFragment"
-        android:name="com.example.kotlin1lesson1.ui.fragments.episode.EpisodeFragment"
+        android:name="com.example.kotlin1lesson6.ui.fragments.episode.EpisodeFragment"
         android:label="EPISODE"
         tools:layout="@layout/fragment_episode" >
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/characterDetailFragment"
-        android:name="com.example.kotlin1lesson1.ui.fragments.character.detail.CharacterDetailFragment"
+        android:name="com.example.kotlin1lesson6.ui.fragments.character.detail.CharacterDetailFragment"
         android:label="{label}"
         tools:layout="@layout/fragment_character_detail" >
         <argument
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/locatioinDetailFragment"
-        android:name="com.example.kotlin1lesson1.ui.fragments.location.detail.LocationDetailFragment"
+        android:name="com.example.kotlin1lesson6.ui.fragments.location.detail.LocationDetailFragment"
         android:label="Location Detail"
         tools:layout="@layout/fragment_locatioin_detail" >
         <argument
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/episodeDetailFragment"
-        android:name="com.example.kotlin1lesson1.ui.fragments.episode.detail.EpisodeDetailFragment"
+        android:name="com.example.kotlin1lesson6.ui.fragments.episode.detail.EpisodeDetailFragment"
         android:label="Episode Detail"
         tools:layout="@layout/fragment_episode_detail" >
         <argument
@@ -70,7 +70,7 @@
     </fragment>
     <dialog
         android:id="@+id/characterDialogFragment"
-        android:name="com.example.kotlin1lesson1.ui.fragments.character.CharacterDialogFragment"
+        android:name="com.example.kotlin1lesson6.ui.fragments.character.CharacterDialogFragment"
         android:label="fragment_character_dialog"
         tools:layout="@layout/fragment_character_dialog" >
         <argument
